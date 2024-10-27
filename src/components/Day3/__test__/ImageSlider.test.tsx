@@ -1,23 +1,51 @@
 import React,{act}  from 'react';
+import { ImageProps } from 'next/image';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ImageSlider } from '../ImageSlider';
 
 import "@testing-library/jest-dom";
 
+
+type MockImageProps = Omit<ImageProps, 'src'> & {
+    src: string;
+    onLoad?: () => void;
+    onError?: () => void;
+};
+
 // Mock next/image
 jest.mock('next/image', () => ({
     __esModule: true,
 
     
-    default: ({ alt, fill, priority, ...props }: any) => {
-        // Convert boolean props to strings to avoid React warnings
+    default: ({
+        alt,
+        src,
+        fill,
+        priority,
+        quality,
+        onLoad,
+        onError,
+        ...props
+    }: MockImageProps) => {
+        // Convert boolean props to data attributes to avoid React warnings
         const booleanProps = {
             ...(fill ? { 'data-fill': 'true' } : {}),
-            ...(priority ? { 'data-priority': 'true' } : {})
+            ...(priority ? { 'data-priority': 'true' } : {}),
+            ...(quality ? { 'data-quality': quality.toString() } : {})
         };
-        return <img {...props} {...booleanProps} alt={alt} />;
-    },
+
+        return (
+            <img
+                alt={alt}
+                src={src}
+                {...props}
+                {...booleanProps}
+                onLoad={onLoad}
+                onError={onError}
+            />
+        );
+    }
 }));
 
 // Mock Lucide icons
