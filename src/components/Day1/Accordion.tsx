@@ -32,7 +32,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ item, isOpen, setIsOpen }
 }
 
 export const Accordion: React.FC<AccordionProps> = ({ items }) => {
-    const [currentIndex, setCurrentIndex] = useState<Number | null>(0)
+    const [currentIndex, setCurrentIndex] = useState<number | null>(0)
     return (
         <div className="space-y-2">
             {items.map((item, idx) => (<AccordionItem item={item} isOpen={currentIndex === idx} setIsOpen={() => {

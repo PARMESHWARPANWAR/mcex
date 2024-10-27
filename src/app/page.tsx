@@ -12,6 +12,12 @@ const challenges = [
     title: "Nested Comments",
     path: "/day2-comments",
     description: "Infinitely nested comment system"
+  },
+  {
+    day:3,
+    title:"Image Slider",
+    path:"/day3-image-slider",
+    description:"Basic Image Slider"
   }
 ]
 

@@ -1,4 +1,3 @@
-import NestedComments from '@/app/day2-comments/page';
 import { render, screen, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom";
 import { CommentList } from '../Comment';
