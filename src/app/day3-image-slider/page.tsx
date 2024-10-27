@@ -13,7 +13,7 @@ export default function ImageSliderPage() {
     return (
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Day 3: Image Slider</h1>
-        <ImageSlider imageList={imageList}/>
+        <ImageSlider imageList={imageList} autoPlay={true}/>
       </div>
     );
 }

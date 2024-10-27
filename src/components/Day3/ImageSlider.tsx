@@ -9,7 +9,7 @@ interface ImageSliderProps {
     autoPlayInterval?: number;
 }
 
-export const ImageSlider: React.FC<ImageSliderProps> = ({ imageList, autoPlay = true,
+export const ImageSlider: React.FC<ImageSliderProps> = ({ imageList, autoPlay = false,
     autoPlayInterval = 3000, }) => {
     const [currentIdx, setCurrentIndex] = useState<number>(0);
     const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -40,8 +40,11 @@ export const ImageSlider: React.FC<ImageSliderProps> = ({ imageList, autoPlay = 
         setCurrentIndex(index);
       };
 
+    if(imageList.length==0) return <div>No images to display</div>  
+
     return (
         <div 
+        data-testId = "slider-container"
         className="relative w-full max-w-4xl mx-auto"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

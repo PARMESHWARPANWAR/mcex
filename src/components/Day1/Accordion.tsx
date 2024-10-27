@@ -26,18 +26,21 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ item, isOpen, setIsOpen }
             {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
         </button>
         {isOpen && <div className="p-4 border-t">
-           <p>{item.content}</p>
+            <p>{item.content}</p>
         </div>}
     </div>
 }
 
 export const Accordion: React.FC<AccordionProps> = ({ items }) => {
     const [currentIndex, setCurrentIndex] = useState<number | null>(0)
+
+    const handleToggle = (idx: number) => {
+        setCurrentIndex(currentIndex === idx ? null : idx);
+    };
+
     return (
         <div className="space-y-2">
-            {items.map((item, idx) => (<AccordionItem item={item} isOpen={currentIndex === idx} setIsOpen={() => {
-                currentIndex === idx ? setCurrentIndex(null) : setCurrentIndex(idx)
-            }} key={item.id} />))}
+            {items.map((item, idx) => (<AccordionItem item={item} isOpen={currentIndex === idx} setIsOpen={() => handleToggle(idx)} key={item.id} />))}
         </div>
     )
 }

@@ -1,14 +1,22 @@
-import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import React,{act}  from 'react';
+
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ImageSlider } from '../ImageSlider';
+
 import "@testing-library/jest-dom";
 
 // Mock next/image
 jest.mock('next/image', () => ({
     __esModule: true,
-    default: ({ alt, fill,priority, ...props }:any) => {
-        // Remove the `fill` attribute if it's set to true
-        return <img {...props} alt={alt} />;
+
+    
+    default: ({ alt, fill, priority, ...props }: any) => {
+        // Convert boolean props to strings to avoid React warnings
+        const booleanProps = {
+            ...(fill ? { 'data-fill': 'true' } : {}),
+            ...(priority ? { 'data-priority': 'true' } : {})
+        };
+        return <img {...props} {...booleanProps} alt={alt} />;
     },
 }));
 
@@ -34,15 +42,17 @@ describe('ImageSlider', () => {
         jest.useRealTimers();
     });
 
-    it('renders without crashing', async () => {
-        await act( ()=>render(<ImageSlider imageList={mockImageList} />));
-        const image = screen.getByAltText('image slider');
+    
+    it('renders without crashing',  () => {
+        act( () => {render(<ImageSlider imageList={mockImageList} />)});
+        
+        const image = screen.getByAltText('Slide 1');
         expect(image).toBeInTheDocument();
         expect(image).toHaveAttribute('src', mockImageList[0]);
     });
 
     it('displays error message when imageList is empty', async () => {
-        await act( ()=> render(<ImageSlider imageList={[]} />));
+        await act( async ()=> render(<ImageSlider imageList={[]} />));
         expect(screen.getByText('No images to display')).toBeInTheDocument();
     });
 
@@ -51,7 +61,7 @@ describe('ImageSlider', () => {
         const nextButton = screen.getByText('>');
 
         fireEvent.click(nextButton);
-        const image = screen.getByAltText('image slider');
+        const image = screen.getByAltText('Slide 2');
         expect(image).toHaveAttribute('src', mockImageList[1]);
     });
 
@@ -63,7 +73,7 @@ describe('ImageSlider', () => {
         fireEvent.click(screen.getByText('>'));
         // Then click prev to go back
         fireEvent.click(prevButton);
-        const image = screen.getByAltText('image slider');
+        const image = screen.getByAltText('Slide 1');
         expect(image).toHaveAttribute('src', mockImageList[0]);
     });
 
@@ -72,7 +82,7 @@ describe('ImageSlider', () => {
         const prevButton = screen.getByText('<');
 
         fireEvent.click(prevButton);
-        const image = screen.getByAltText('image slider');
+        const image = screen.getByAltText(`Slide ${mockImageList.length}`);
         expect(image).toHaveAttribute('src', mockImageList[mockImageList.length - 1]);
     });
 
@@ -85,7 +95,7 @@ describe('ImageSlider', () => {
         fireEvent.click(nextButton);
         // Click next again to wrap around
         fireEvent.click(nextButton);
-        const image = screen.getByAltText('image slider');
+        const image = screen.getByAltText('Slide 1');
         expect(image).toHaveAttribute('src', mockImageList[0]);
     });
 
@@ -97,7 +107,7 @@ describe('ImageSlider', () => {
                 jest.advanceTimersByTime(3000);
             });
 
-            const image = screen.getByAltText('image slider');
+            const image = screen.getByAltText('Slide 2');
             expect(image).toHaveAttribute('src', mockImageList[1]);
         });
 
@@ -111,7 +121,7 @@ describe('ImageSlider', () => {
                 jest.advanceTimersByTime(3000);
             });
 
-            const image = screen.getByAltText('image slider');
+            const image = screen.getByAltText('Slide 1');
             expect(image).toHaveAttribute('src', mockImageList[0]);
         });
 
@@ -126,7 +136,7 @@ describe('ImageSlider', () => {
                 jest.advanceTimersByTime(3000);
             });
 
-            const image = screen.getByAltText('image slider');
+            const image = screen.getByAltText('Slide 2');
             expect(image).toHaveAttribute('src', mockImageList[1]);
         });
     });
@@ -134,13 +144,14 @@ describe('ImageSlider', () => {
     describe('Accessibility', () => {
         it('has accessible navigation buttons', async () => {
             await act( ()=>render(<ImageSlider imageList={mockImageList} />));
-            expect(screen.getByLabelText('Previous image')).toBeInTheDocument();
-            expect(screen.getByLabelText('Next image')).toBeInTheDocument();
+            expect(screen.getByLabelText('Previous slide')).toBeInTheDocument();
+            expect(screen.getByLabelText('Next slide')).toBeInTheDocument();
         });
 
         it('provides correct image descriptions', async() => {
             await act( ()=>render(<ImageSlider imageList={mockImageList} />));
-            expect(screen.getByAltText('image slider')).toBeInTheDocument();
+            expect(screen.getByAltText('Slide 1')).toBeInTheDocument();
         });
     });
+
 });
