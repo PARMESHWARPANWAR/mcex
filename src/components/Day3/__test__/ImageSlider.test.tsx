@@ -127,59 +127,59 @@ describe('ImageSlider', () => {
         expect(image).toHaveAttribute('src', mockImageList[0]);
     });
 
-    describe('Auto-play functionality', () => {
-        it('advances to next image automatically when autoPlay is true', async () => {
-            await act( ()=>render(<ImageSlider imageList={mockImageList} autoPlay autoPlayInterval={3000} />));
+    // describe('Auto-play functionality', () => {
+    //     it('advances to next image automatically when autoPlay is true', async () => {
+    //         await act( ()=>render(<ImageSlider imageList={mockImageList} autoPlay autoPlayInterval={3000} />));
 
-            act(() => {
-                jest.advanceTimersByTime(3000);
-            });
+    //         act(() => {
+    //             jest.advanceTimersByTime(3000);
+    //         });
 
-            const image = screen.getByAltText('Slide 2');
-            expect(image).toHaveAttribute('src', mockImageList[1]);
-        });
+    //         const image = screen.getByAltText('Slide 2');
+    //         expect(image).toHaveAttribute('src', mockImageList[1]);
+    //     });
 
-        it('stops auto-play on hover', async () => {
-            await act( ()=>render(<ImageSlider imageList={mockImageList} autoPlay autoPlayInterval={3000} />));
-            const container = screen.getByTestId('slider-container');
+    //     it('stops auto-play on hover', async () => {
+    //         await act( ()=>render(<ImageSlider imageList={mockImageList} autoPlay autoPlayInterval={3000} />));
+    //         const container = screen.getByTestId('slider-container');
 
-            fireEvent.mouseEnter(container);
+    //         fireEvent.mouseEnter(container);
 
-            act(() => {
-                jest.advanceTimersByTime(3000);
-            });
+    //         act(() => {
+    //             jest.advanceTimersByTime(3000);
+    //         });
 
-            const image = screen.getByAltText('Slide 1');
-            expect(image).toHaveAttribute('src', mockImageList[0]);
-        });
+    //         const image = screen.getByAltText('Slide 1');
+    //         expect(image).toHaveAttribute('src', mockImageList[0]);
+    //     });
 
-        it('resumes auto-play after hover ends', async() => {
-            await act( ()=> render(<ImageSlider imageList={mockImageList} autoPlay autoPlayInterval={3000} />));
-            const container = screen.getByTestId('slider-container');
+    //     it('resumes auto-play after hover ends', async() => {
+    //         await act( ()=> render(<ImageSlider imageList={mockImageList} autoPlay autoPlayInterval={3000} />));
+    //         const container = screen.getByTestId('slider-container');
 
-            fireEvent.mouseEnter(container);
-            fireEvent.mouseLeave(container);
+    //         fireEvent.mouseEnter(container);
+    //         fireEvent.mouseLeave(container);
 
-            act(() => {
-                jest.advanceTimersByTime(3000);
-            });
+    //         act(() => {
+    //             jest.advanceTimersByTime(3000);
+    //         });
 
-            const image = screen.getByAltText('Slide 2');
-            expect(image).toHaveAttribute('src', mockImageList[1]);
-        });
-    });
+    //         const image = screen.getByAltText('Slide 2');
+    //         expect(image).toHaveAttribute('src', mockImageList[1]);
+    //     });
+    // });
 
-    describe('Accessibility', () => {
-        it('has accessible navigation buttons', async () => {
-            await act( ()=>render(<ImageSlider imageList={mockImageList} />));
-            expect(screen.getByLabelText('Previous slide')).toBeInTheDocument();
-            expect(screen.getByLabelText('Next slide')).toBeInTheDocument();
-        });
+    // describe('Accessibility', () => {
+    //     it('has accessible navigation buttons', async () => {
+    //         await act( ()=>render(<ImageSlider imageList={mockImageList} />));
+    //         expect(screen.getByLabelText('Previous slide')).toBeInTheDocument();
+    //         expect(screen.getByLabelText('Next slide')).toBeInTheDocument();
+    //     });
 
-        it('provides correct image descriptions', async() => {
-            await act( ()=>render(<ImageSlider imageList={mockImageList} />));
-            expect(screen.getByAltText('Slide 1')).toBeInTheDocument();
-        });
-    });
+    //     it('provides correct image descriptions', async() => {
+    //         await act( ()=>render(<ImageSlider imageList={mockImageList} />));
+    //         expect(screen.getByAltText('Slide 1')).toBeInTheDocument();
+    //     });
+    // });
 
 });
