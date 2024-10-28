@@ -18,6 +18,12 @@ const challenges = [
     title:"Image Slider",
     path:"/day3-image-slider",
     description:"Basic Image Slider"
+  },
+  {
+    day:4,
+    title:"Infinite Scroll",
+    path:"/day4-infinite-scroll",
+    description:"Infinite Scroll"
   }
 ]
 
