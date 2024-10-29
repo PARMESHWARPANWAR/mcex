@@ -44,7 +44,7 @@ export const ImageSlider: React.FC<ImageSliderProps> = ({ imageList, autoPlay = 
 
     return (
         <div 
-        data-testId = "slider-container"
+        data-testid = "slider-container"
         className="relative w-full max-w-4xl mx-auto"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

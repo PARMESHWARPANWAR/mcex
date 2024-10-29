@@ -26,11 +26,11 @@ interface MemeCardProps {
 // Shimmer animation styles using Tailwind
 const shimmerStyle = "animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:400%_100%]"
 
-const MemeCard: React.FC<MemeCardProps> = ({ meme }) => {
+export const MemeCard: React.FC<MemeCardProps> = ({ meme }) => {
     const { url, title, author } = meme
     
     return (
-        <div className="w-72 p-4 m-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
+        <div data-testid="meme-card" className="w-72 p-4 m-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
             <h3 className="text-lg font-medium mb-2 line-clamp-1">{title}</h3>
             <div className="relative w-64 h-64 mb-2">
                 <Image 
@@ -51,7 +51,7 @@ const ShimmerCard: React.FC = () => {
     return (
         <>
             {Array.from({ length: 15 }, (_, idx) => (
-                <div key={idx} className="w-72 p-4 m-4 border rounded-lg">
+                <div key={idx} className="w-72 p-4 m-4 border rounded-lg" data-testid="shimmer-card">
                     {/* Title shimmer */}
                     <div className={`w-48 h-6 mb-2 rounded ${shimmerStyle}`} />
                     
@@ -81,7 +81,6 @@ export const ShimmerUIExample: React.FC = () => {
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred'
             setError(errorMessage)
-            console.error('Error fetching memes:', err)
         }
     }
 
