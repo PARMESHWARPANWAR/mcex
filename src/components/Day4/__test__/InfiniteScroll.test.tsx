@@ -1,4 +1,5 @@
-import { render, act, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React, { act } from 'react'
 import { InfiniteScroll } from '../InfiniteScroll';
 import "@testing-library/jest-dom";
 
@@ -45,27 +46,28 @@ describe('InfiniteScroll', () => {
     // });
   });
 
-  // it('should load more items when scrolling to bottom', async () => {
-  //   render(<InfiniteScroll />);
+  it('should load more items when scrolling to bottom', async () => {
+    render(<InfiniteScroll />);
 
-  //   // Wait for initial items
-  //   await waitFor(() => {
-  //     expect(screen.getAllByText(/Item \d+/)).toHaveLength(10);
-  //   });
+    // Wait for initial items to load
+    // await waitFor(() => {
+    //   const items = screen.getAllByText(/Item \d+/);
+    //   expect(items).toHaveLength(10); // First page should have 10 items
+    // });
 
-  //   // Simulate scroll to bottom
-  //   act(() => {
-  //     Object.defineProperty(window, 'scrollY', { value: 200 });
-  //     Object.defineProperty(document.body, 'scrollHeight', { value: 1000 });
-  //     fireEvent.scroll(window);
-  //   });
+    // Simulate scroll to bottom
+    // act(() => {
+    //   Object.defineProperty(window, 'scrollY', { value: 200 });
+    //   Object.defineProperty(document.body, 'scrollHeight', { value: 1000 });
+    //   fireEvent.scroll(window);
+    // });
 
-  //   // Wait for next page to load
-  //   await waitFor(() => {
-  //     const items = screen.getAllByText(/Item \d+/);
-  //     expect(items).toHaveLength(20); // Should now have 20 items
-  //   });
-  // });
+    // Wait for next page to load
+    // await waitFor(() => {
+    //   const items = screen.getAllByText(/Item \d+/);
+    //   expect(items).toHaveLength(20); // Should now have 20 items
+    // });
+  });
 
   it('should stop loading more items when hasMore is false', async () => {
     render(<InfiniteScroll />);
@@ -133,4 +135,5 @@ describe('InfiniteScroll', () => {
   //     expect(items).toHaveLength(20); // Should only load one additional page despite multiple scrolls
   //   });
   // });
+  
 });
