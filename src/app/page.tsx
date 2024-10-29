@@ -24,6 +24,12 @@ const challenges = [
     title:"Infinite Scroll",
     path:"/day4-infinite-scroll",
     description:"Infinite Scroll"
+  },
+  {
+    day:5, 
+    title:'Shimmer UI',
+    path:'/day5-shimmer-ui',
+    description:'Shimmer UI'
   }
 ]
 
