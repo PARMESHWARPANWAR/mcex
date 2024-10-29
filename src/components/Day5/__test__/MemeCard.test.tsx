@@ -1,9 +1,6 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { ImageProps } from 'next/image';
-
+import { render, screen } from "@testing-library/react";
 import '@testing-library/jest-dom'
 import { MemeCard } from "../ShimmerUi";
-
 
 describe('MemeCard', () => {
     const mockMeme = {
