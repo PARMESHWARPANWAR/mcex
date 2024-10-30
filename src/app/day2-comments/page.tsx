@@ -1,4 +1,5 @@
 import { CommentList } from "@/components/Day2/Comment";
+import { BackButton } from "@/components/ui/BackButton";
 
 const commentsData = [
     {
@@ -86,7 +87,8 @@ const commentsData = [
 
 export default function NestedComments() {
     return (
-      <div className="max-w-3xl mx-auto">
+      <div className="container mx-auto p-4">
+        <BackButton />        
         <h1 className="text-3xl font-bold mb-8">Day 2: Nested Comments</h1>
         <CommentList comments={commentsData} />
       </div>

@@ -1,4 +1,5 @@
 import { ImageSlider } from "@/components/Day3/ImageSlider";
+import { BackButton } from "@/components/ui/BackButton";
 
 const imageList = [
     "https://img.freepik.com/premium-photo/grainy-gradient-background-red-white-blue-colors-with-soft-faded-watercolor-border-texture_927344-24167.jpg",
@@ -11,7 +12,8 @@ const imageList = [
 
 export default function ImageSliderPage() {
     return (
-      <div className="max-w-3xl mx-auto">
+      <div className="container mx-auto p-4">
+        <BackButton />
         <h1 className="text-3xl font-bold mb-8">Day 3: Image Slider</h1>
         <ImageSlider imageList={imageList} autoPlay={true}/>
       </div>
