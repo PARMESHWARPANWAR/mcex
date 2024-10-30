@@ -30,6 +30,12 @@ const challenges = [
     title:'Shimmer UI',
     path:'/day5-shimmer-ui',
     description:'Shimmer UI'
+  },
+  {
+    day:6,
+    title:'Kanban Board',
+    path:'/day6-kanban-board',
+    description:'Kanban Board'
   }
 ]
 
