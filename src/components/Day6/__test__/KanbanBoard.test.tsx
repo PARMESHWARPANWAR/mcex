@@ -1,5 +1,4 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { ImageProps } from 'next/image';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom'
 import KanbanBoard from "../KanbanBoard";

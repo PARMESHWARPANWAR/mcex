@@ -37,6 +37,12 @@ const challenges = [
     title: 'Kanban Board',
     path: '/day6-kanban-board',
     description: 'Kanban Board'
+  },
+  {
+    day:7,
+    title:'File Explorer',
+    path:'/day7-file-explorer',
+    description:'File Explorer'
   }
 ];
 
