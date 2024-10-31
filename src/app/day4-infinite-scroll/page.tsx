@@ -1,7 +1,5 @@
 import { InfiniteScroll } from "@/components/Day4/InfiniteScroll";
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
-
 
 export default function InfiniteScrollPage() {
   return (

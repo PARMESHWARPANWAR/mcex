@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Folder, File, MoreVertical, Plus, Trash2 } from 'lucide-react';
+import { Folder, File, Plus, Trash2 } from 'lucide-react';
 import {
   ContextMenu,
   ContextMenuContent,
