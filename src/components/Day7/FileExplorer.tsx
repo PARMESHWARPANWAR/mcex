@@ -28,19 +28,19 @@ export const FileExplorer: React.FC<FileExplorerProps> = ({ initialData }) => {
     return Math.random().toString(36).substr(2, 9);
   };
 
-  const findNodeById = (
-    nodes: FileSystemNode[],
-    id: string
-  ): FileSystemNode | null => {
-    for (const node of nodes) {
-      if (node.id === id) return node;
-      if (node.children) {
-        const found = findNodeById(node.children, id);
-        if (found) return found;
-      }
-    }
-    return null;
-  };
+//   const findNodeById = (
+//     nodes: FileSystemNode[],
+//     id: string
+//   ): FileSystemNode | null => {
+//     for (const node of nodes) {
+//       if (node.id === id) return node;
+//       if (node.children) {
+//         const found = findNodeById(node.children, id);
+//         if (found) return found;
+//       }
+//     }
+//     return null;
+//   };
 
   const deleteNode = (nodes: FileSystemNode[], id: string): FileSystemNode[] => {
     return nodes.filter(node => {
