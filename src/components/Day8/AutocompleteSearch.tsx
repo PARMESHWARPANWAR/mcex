@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { Search } from 'lucide-react';
-import { debounce } from '@/utils/debounce';
+import { debounce } from '../../utils/debounce';
 import { SearchResult } from '../../../types';
 
 interface AutocompleteSearchProps {
@@ -113,6 +113,7 @@ export const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
     return <div className='relative w-full max-w-md'>
         <div className='relative'>
             <input
+            data-testid='search box'
             ref={inputRef}
             type='text'
             value={query}

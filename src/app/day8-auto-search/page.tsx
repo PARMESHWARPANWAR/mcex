@@ -4,14 +4,6 @@ import { AutocompleteSearch } from "@/components/Day8/AutocompleteSearch";
 import { BackButton } from "@/components/ui/BackButton";
 import { SearchResult } from "../../../types";
 
-
-interface FileSystemNode {
-  id: string;
-  name: string;
-  type: 'file' | 'folder';
-  children?: FileSystemNode[];
-}
-
 export default function FileExplorerPage() {
     const handleSelect = (result:SearchResult)=>{
         console.log('Selected result:',result);
