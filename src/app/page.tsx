@@ -43,6 +43,12 @@ const challenges = [
     title:'File Explorer',
     path:'/day7-file-explorer',
     description:'File Explorer'
+  },
+  {
+    day:8,
+    title:'Auto Search',
+    path:'/day8-auto-search',
+    description:'Auto Search'
   }
 ];
 
