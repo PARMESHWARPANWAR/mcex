@@ -1,4 +1,3 @@
-// __tests__/AutocompleteSearch.test.tsx
 import React from 'react';
 import { 
   render, 

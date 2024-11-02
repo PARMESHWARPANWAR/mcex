@@ -21,6 +21,7 @@ export const CartItemComponent: React.FC<CartItemProps> = ({
   onUpdateQuantity,
   onRemove,
 }) => {
+  console.log('cart item==>',item)
   return (
     <Card className="mb-4">
       <CardContent className="flex items-center justify-between p-4">
