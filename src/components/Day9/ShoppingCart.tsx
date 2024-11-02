@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {CartItemComponent} from './CartItem';
 import { useCartStore } from '@/store/cartSlice';
-import ProductsPage from './products';
+import ProductsPage from './Products';
 
 const ShoppingCart: React.FC = () => {
   const { cart, removeItem, updateQuantity, clearCart } = useCartStore();
