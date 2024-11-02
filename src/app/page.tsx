@@ -49,6 +49,11 @@ const challenges = [
     title:'Auto Search',
     path:'/day8-auto-search',
     description:'Auto Search'
+  },
+  {
+    day:9,
+    title:'Shopping Cart',
+    path:'/day9-shopping-cart'
   }
 ];
 
