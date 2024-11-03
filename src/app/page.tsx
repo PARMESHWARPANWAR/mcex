@@ -53,7 +53,14 @@ const challenges = [
   {
     day:9,
     title:'Shopping Cart',
-    path:'/day9-shopping-cart'
+    path:'/day9-shopping-cart',
+    description:'For Shopping Cart adding and remove product functionality'
+  },
+  {
+    day:10,
+    title:'Star Rating',
+    path:'/day10-star-rating',
+    description:'Star Rating'
   }
 ];
 
