@@ -33,11 +33,11 @@ export const InfiniteScroll = () => {
         }
     }
 
-    const handleScroll = () => {
-        if(window.scrollY + window.innerHeight >= document.body.scrollHeight && !loading && hasMore){
-            setPage(prev=>prev+1)
-        }
-    }
+    // const handleScroll = () => {
+    //     if(window.scrollY + window.innerHeight >= document.body.scrollHeight && !loading && hasMore){
+    //         setPage(prev=>prev+1)
+    //     }
+    // }
 
     useEffect(() => {
         const loadInitialData = async () => {
