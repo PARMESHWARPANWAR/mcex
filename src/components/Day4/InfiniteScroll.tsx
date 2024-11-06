@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useRef, useState } from "react";
 import { Loader } from 'lucide-react';
+import CodeDisplay from "./CodeDisplay";
 
 export const InfiniteScroll = () => {
     const [loading, setLoading] = useState(false);
@@ -48,29 +49,29 @@ export const InfiniteScroll = () => {
 
     // For detecting bottom we have to way can be more
     // First Way [Simple and basic way]
-    useEffect(()=>{
-        window.addEventListener("scroll" , handleScroll)
-        return () => window.removeEventListener("scroll", handleScroll)
-    },[])
+    // useEffect(()=>{
+    //     window.addEventListener("scroll" , handleScroll)
+    //     return () => window.removeEventListener("scroll", handleScroll)
+    // },[])
 
     // Second Way
     // Set up intersection observer
-    // useEffect(() => {
-    //     const observer = new IntersectionObserver(entries => {
-    //         const firstEntry = entries[0];
-    //         if (firstEntry.isIntersecting && !loading && hasMore) {
-    //             setPage(prev => prev + 1);
-    //         }
-    //     },
-    //         { threshold: 1.0 }
-    //     )
+    useEffect(() => {
+        const observer = new IntersectionObserver(entries => {
+            const firstEntry = entries[0];
+            if (firstEntry.isIntersecting && !loading && hasMore) {
+                setPage(prev => prev + 1);
+            }
+        },
+            { threshold: 1.0 }
+        )
 
-    //     if(loaderRef.current){
-    //         observer.observe(loaderRef.current);
-    //     }
+        if(loaderRef.current){
+            observer.observe(loaderRef.current);
+        }
 
-    //     return ()=> observer.disconnect();
-    // },[loading, hasMore])
+        return ()=> observer.disconnect();
+    },[loading, hasMore])
 
     // Load more data when page changes
     useEffect(() => {
@@ -84,7 +85,8 @@ export const InfiniteScroll = () => {
     }, [page]);
 
     return (
-        <div className="w-full max-w-md mx-auto p-4">
+        <div className="w-full mx-auto p-4">
+            <CodeDisplay/>
             <div className="space-y-4">
                 {items.map((item, idx) => (
                     <div
