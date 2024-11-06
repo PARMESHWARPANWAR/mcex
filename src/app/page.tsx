@@ -61,6 +61,12 @@ const challenges = [
     title:'Star Rating',
     path:'/day10-star-rating',
     description:'Star Rating'
+  },
+  {
+    day:11,
+    title:'Pagination',
+    path:'/day11-pagination',
+    description:'Pagination'
   }
 ];
 

@@ -26,8 +26,8 @@ jest.mock('../../../utils/debounce', () => ({
         ) => {
             func(...args);
         }) as DebouncedFunction<T>;
-        console.log(delay)
         debouncedFunction.cancel = () => {
+          delay
             // No-op cancel method for testing
         };
       
