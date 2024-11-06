@@ -28,7 +28,6 @@ const LIMIT = 10;
 
 export const Pagination = () => {
     const [products, setProducts] = useState<Product[]>([])
-    const [totalProduct, setTotalProduct] = useState<number>(0)
     const [currentPage, setCurrentPage] = useState<number>(0)
     const [totalPages, setTotalPages] = useState<number>(0)
 
@@ -36,10 +35,8 @@ export const Pagination = () => {
     const fetchData = async () => {
         const data = await fetch(`https://dummyjson.com/products?limit=${LIMIT}&skip=${LIMIT * currentPage}&select=title,price,description,rating,thumbnail,discountPercentage`);
         const jsn = await data.json()
-        let proCnt = jsn?.total;
-        setTotalProduct(proCnt)
         setProducts(jsn?.products)
-        const totalPage = Math.ceil(proCnt / LIMIT)
+        const totalPage = Math.ceil(jsn?.total / LIMIT)
         setTotalPages(totalPage)
     }
 
