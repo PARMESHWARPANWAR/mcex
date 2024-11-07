@@ -19,7 +19,7 @@ interface DebouncedFunction<T extends GenericFunction> {
 jest.mock('../../../utils/debounce', () => ({
     debounce: jest.fn(<T extends GenericFunction>(
         func: T, 
-        delay: number
+        // delay: number
     ): DebouncedFunction<T> => {
         const debouncedFunction = ((
             ...args: Parameters<T>
@@ -27,7 +27,6 @@ jest.mock('../../../utils/debounce', () => ({
             func(...args);
         }) as DebouncedFunction<T>;
         debouncedFunction.cancel = () => {
-          console.log(delay)
             // No-op cancel method for testing
         };
       
