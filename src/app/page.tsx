@@ -86,6 +86,7 @@ export default function Home() {
         <p className="text-gray-600">
           10 Days of Common Frontend Interview Questions
         </p>
+        <a href='https://github.com/PARMESHWARPANWAR/machine-coding-interview-questions-examples'>Source Code</a>
       </header>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
