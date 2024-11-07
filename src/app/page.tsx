@@ -67,6 +67,12 @@ const challenges = [
     title:'Pagination',
     path:'/day11-pagination',
     description:'Pagination'
+  },
+  {
+    day:12,
+    title:'Youtube Live Chat',
+    path:'/day12-youtube-livechat',
+    description:'Youtube Live chat example '
   }
 ];
 
