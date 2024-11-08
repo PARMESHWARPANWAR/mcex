@@ -16,4 +16,10 @@ describe('Message Test',()=>{
 
         expect(nameText).toBeInTheDocument();
     })
+
+    it("Should render image", ()=>{
+        render(<Message {...mockData}/>)
+        const imgElement = screen.getByRole('img')
+        expect(imgElement).toHaveAttribute('src', expect.stringContaining(mockData.profileUrl))
+    })
 })

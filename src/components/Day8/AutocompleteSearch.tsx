@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { Search } from 'lucide-react';
 import { debounce } from '../../utils/debounce';
 import { SearchResult } from '../../../types';
+import { GoogleAutoSearch } from './GoogleAutoSearch';
 
 interface AutocompleteSearchProps {
     placeholder?: string;
@@ -158,5 +159,6 @@ export const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
                 )}
             </div>
         )}
+        <GoogleAutoSearch/>
     </div>
 }
