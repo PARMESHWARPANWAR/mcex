@@ -73,6 +73,18 @@ const challenges = [
     title:'Youtube Live Chat',
     path:'/day12-youtube-livechat',
     description:'Youtube Live chat example '
+  },
+  {
+    day:'multiSelect',
+    title:'Multi Select',
+    path:'/multi-select',
+    description:'Multi Select Example'
+  },
+  {
+    day:'focus',
+    title:'Increase Constration',
+    path:'/focus',
+    description:'Come Write Text And Focus on That Text to increase constration'
   }
 ];
 
@@ -84,7 +96,7 @@ export default function Home() {
           Frontend Machine Coding Challenge
         </h1>
         <p className="text-gray-600">
-          10 Days of Common Frontend Interview Questions
+          Common Frontend Interview Questions
         </p>
         <a href='https://github.com/PARMESHWARPANWAR/machine-coding-interview-questions-examples'>Source Code</a>
       </header>
