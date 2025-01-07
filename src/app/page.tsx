@@ -85,6 +85,23 @@ const challenges = [
     title:'Increase Constration',
     path:'/focus',
     description:'Come Write Text And Focus on That Text to increase constration'
+  },{
+    day:'Password generator',
+    title:'Password Generator',
+    path:'/passwordgenerator',
+    description:'Password Generator '
+  },
+  {
+    day:'login-otp',
+    title:'Login otp',
+    path:'/login-otp',
+    description:'Login otp Example'
+  },
+  {
+    day:'trafic lights',
+    title:'Trafic Light',
+    path:'/trafic-light',
+    description:'Trafic Light'
   }
 ];
 
