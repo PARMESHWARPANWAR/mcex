@@ -1,108 +1,114 @@
-// src/app/page.tsx
 import Link from 'next/link';
 
 const challenges = [
   {
-    day: 1,
+    Tutorial: 1,
     title: "Accordion Component",
     path: "/day1-accordion",
     description: "Single-level accordion with smooth animations"
   },
   {
-    day: 2,
+    Tutorial: 2,
     title: "Nested Comments",
     path: "/day2-comments",
     description: "Infinitely nested comment system"
   },
   {
-    day: 3,
+    Tutorial: 3,
     title: "Image Slider",
     path: "/day3-image-slider",
     description: "Basic Image Slider"
   },
   {
-    day: 4,
+    Tutorial: 4,
     title: "Infinite Scroll",
     path: "/day4-infinite-scroll",
     description: "Infinite Scroll"
   },
   {
-    day: 5,
+    Tutorial: 5,
     title: 'Shimmer UI',
     path: '/day5-shimmer-ui',
     description: 'Shimmer UI'
   },
   {
-    day: 6,
+    Tutorial: 6,
     title: 'Kanban Board',
     path: '/day6-kanban-board',
     description: 'Kanban Board'
   },
   {
-    day:7,
+    Tutorial:7,
     title:'File Explorer',
     path:'/day7-file-explorer',
     description:'File Explorer'
   },
   {
-    day:8,
+    Tutorial:8,
     title:'Auto Search',
     path:'/day8-auto-search',
     description:'Auto Search'
   },
   {
-    day:9,
+    Tutorial:9,
     title:'Shopping Cart',
     path:'/day9-shopping-cart',
     description:'For Shopping Cart adding and remove product functionality'
   },
   {
-    day:10,
+    Tutorial:10,
     title:'Star Rating',
     path:'/day10-star-rating',
     description:'Star Rating'
   },
   {
-    day:11,
+    Tutorial:11,
     title:'Pagination',
     path:'/day11-pagination',
     description:'Pagination'
   },
   {
-    day:12,
+    Tutorial:12,
     title:'Youtube Live Chat',
     path:'/day12-youtube-livechat',
     description:'Youtube Live chat example '
   },
   {
-    day:'multiSelect',
+    Tutorial:13,
     title:'Multi Select',
     path:'/multi-select',
     description:'Multi Select Example'
   },
   {
-    day:'focus',
+    Tutorial:14,
     title:'Increase Constration',
     path:'/focus',
     description:'Come Write Text And Focus on That Text to increase constration'
   },{
-    day:'Password generator',
+    Tutorial:15,
     title:'Password Generator',
     path:'/passwordgenerator',
     description:'Password Generator '
   },
   {
-    day:'login-otp',
+    Tutorial:16,
     title:'Login otp',
     path:'/login-otp',
     description:'Login otp Example'
   },
   {
-    day:'trafic lights',
+    Tutorial:17,
     title:'Trafic Light',
     path:'/trafic-light',
     description:'Trafic Light'
-  }
+  },
+  {
+    Tutorial:18,
+    title:'Fetch Web Api',
+    path:'/fetch-web-api',
+    description:'Fetch Web Api'
+  },
+
 ];
 
 export default function Home() {
@@ -121,13 +127,13 @@ export default function Home() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {challenges.map((challenge) => (
           <Link
-            key={challenge.day}
+            key={challenge.Tutorial}
             href={challenge.path}
             className="block p-6 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
           >
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-xl font-semibold">
-                Day {challenge.day}: {challenge.title}
+                Tutorial {challenge.Tutorial}: {challenge.title}
               </h2>
             </div>
             <p className="text-gray-600">{challenge.description}</p>
