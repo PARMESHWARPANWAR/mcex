@@ -5047,6 +5047,7 @@ __metadata:
     postcss: "npm:^8"
     react: "npm:19.0.0-rc-69d4b800-20241021"
     react-dom: "npm:19.0.0-rc-69d4b800-20241021"
+    react-icons: "npm:^5.5.0"
     tailwind-merge: "npm:^2.5.4"
     tailwindcss: "npm:^3.4.1"
     tailwindcss-animate: "npm:^1.0.7"
@@ -7628,6 +7629,15 @@ __metadata:
   peerDependencies:
     react: 19.0.0-rc-69d4b800-20241021
   checksum: 10/c3eef45a63287435105314eda004c64e4d14c5e9221418d8ca6c02dcc421de55f5d1218bf849888bf5253d3f72a646725d521e2c9671bef4d7874ecd50b36681
+  languageName: node
+  linkType: hard
+
+"react-icons@npm:^5.5.0":
+  version: 5.5.0
+  resolution: "react-icons@npm:5.5.0"
+  peerDependencies:
+    react: "*"
+  checksum: 10/67d5b311c23f74829cb90d58b78ddc87959d2087eda7f29b78d1ab6e337b04b0358a00724d73ab60652469d9a2c66ba3c034b8b7d4f32caae942592f92f59a84
   languageName: node
   linkType: hard
 

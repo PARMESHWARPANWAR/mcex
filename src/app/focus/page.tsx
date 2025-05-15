@@ -1,8 +1,7 @@
-import { Pagination } from "@/components/Day11/Pagination";
 import { FocusPage } from "@/components/Focus/FocusPage";
 import { BackButton } from "@/components/ui/BackButton";
 
-export default function PaginationPage() {
+export default function FocusScreenPage() {
     return (
       <div className="container mx-auto p-4">
         <BackButton />

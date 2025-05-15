@@ -1,7 +1,17 @@
 /* eslint-disable react/prop-types */
-import {HiOutlineStar, HiStar} from "react-icons/hi2";
+import React from 'react';
+import { HiOutlineStar, HiStar } from "react-icons/hi2";
 
-const CurrencyDropdown = ({
+interface CurrencyDropdownProps {
+  currencies: string[],
+  currency: string,
+  setCurrency: (value: string) => void,
+  favorites: string[],
+  handleFavorite: (value: string) => void,
+  title?: string
+}
+
+const CurrencyDropdown: React.FC<CurrencyDropdownProps> = ({
   currencies,
   currency,
   setCurrency,
@@ -9,7 +19,7 @@ const CurrencyDropdown = ({
   handleFavorite,
   title = "",
 }) => {
-  const isFavorite = (curr) => favorites.includes(curr);
+  const isFavorite = (curr: string) => favorites.includes(curr);
 
   return (
     <div>
@@ -22,30 +32,28 @@ const CurrencyDropdown = ({
 
       <div className="mt-1 relative">
         <select
+          id={title}
           value={currency}
           onChange={(e) => setCurrency(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
-          {favorites.map((currency) => {
-            return (
-              <option className="bg-gray-200" value={currency} key={currency}>
-                {currency}
-              </option>
-            );
-          })}
-          <hr />
+          {favorites.map((curr) => (
+            <option className="bg-gray-200" value={curr} key={curr}>
+              {curr}
+            </option>
+          ))}
+          <option disabled>──────────</option>
           {currencies
             .filter((c) => !favorites.includes(c))
-            .map((currency) => {
-              return (
-                <option value={currency} key={currency}>
-                  {currency}
-                </option>
-              );
-            })}
+            .map((curr) => (
+              <option value={curr} key={curr}>
+                {curr}
+              </option>
+            ))}
         </select>
 
         <button
+          type="button"
           onClick={() => handleFavorite(currency)}
           className="absolute inset-y-0 right-0 pr-5 flex items-center text-sm leading-5"
         >

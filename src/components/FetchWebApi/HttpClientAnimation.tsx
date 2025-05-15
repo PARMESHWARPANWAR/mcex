@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const HttpClientAnimation = () => {
     const [currentStep, setCurrentStep] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false);
-    const [selectedFeature, setSelectedFeature] = useState(null);
+    const [selectedFeature, setSelectedFeature] = useState<{id:string,title:string,description:string,code:string}>({id:"",title:"",description:"",code:""});
 
     const steps = [
         {
@@ -128,7 +128,7 @@ const HttpClientAnimation = () => {
     useEffect(() => {
         if (isPlaying) {
             const interval = setInterval(() => {
-                setCurrentStep((prev: any) => {
+                setCurrentStep((prev: number) => {
                     if (prev >= steps.length - 1) {
                         setIsPlaying(false);
                         return 0;
@@ -141,7 +141,7 @@ const HttpClientAnimation = () => {
 
     }, [isPlaying, steps.length]);
 
-    const isComponentActive = (component: React.FC) => {
+    const isComponentActive = (component: string) => {
         return steps[currentStep].activeComponents.includes(component);
     };
 

@@ -1,25 +1,26 @@
 "use client"
-import { useState as reactUseState, useEffect } from 'react';
+import { useState as reactUseState, useEffect, useReducer } from 'react';
 
 // Custom useState implementation
 const createCustomUseState = () => {
-  let states = [];
-  let setters = [];
+  const states: string[] = [];
+  const setters: ((value: string | ((val: string) => string)) => void)[] = [];
   let currentIndex = 0;
-  const useState = (initialValue) => {
+  
+  const useState = (initialValue: string): [string, (value: string | ((val: string) => string)) => void] => {
     const index = currentIndex;
     
     // Initialize state if needed
     if (states[index] === undefined) {
       states[index] = initialValue;
-      setters[index] = (newValue) => {
+      setters[index] = (newValue: string | ((value: string) => string)) => {
         if (typeof newValue === 'function') {
           states[index] = newValue(states[index]);
         } else {
           states[index] = newValue;
         }
         // Trigger re-render logic here
-        forceUpdate();
+        forceRender();
       };
     }
     
@@ -37,10 +38,19 @@ const createCustomUseState = () => {
 // Create an instance of our custom useState
 const { useState: customUseState, resetIndex, getStates } = createCustomUseState();
 
+// Global force render function that will be defined by the component
+let forceRender = () => {};
+
 // Test Component using custom useState
 const TestComponent = () => {
-  const [count, setCount] = customUseState(0);
-  const [text, setText] = customUseState("Hello");
+  // Create a way to force re-renders
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
+  
+  // Assign our forceRender function
+  forceRender = forceUpdate;
+  
+  const [count, setCount] = customUseState('0') as [string, (value: string | ((val: string) => string)) => void];
+  const [text, setText] = customUseState("Hello") as [string, (value: string | ((val: string) => string)) => void];
   
   // Use React's useState for comparison
   const [reactCount, setReactCount] = reactUseState(0);
@@ -61,7 +71,7 @@ const TestComponent = () => {
         <div className="space-x-2">
           <button 
             className="px-3 py-1 bg-blue-500 text-white rounded"
-            onClick={() => setCount(prev => prev + 1)}
+            onClick={() => setCount(prev => String(Number(prev) + 1))}
           >
             Increment Count
           </button>
@@ -75,7 +85,7 @@ const TestComponent = () => {
       </div>
 
       <div className="space-y-2">
-        <h2 className="text-xl font-bold">React's useState Comparison</h2>
+        <h2 className="text-xl font-bold">{"React's useState Comparison"}</h2>
         <p>React Count: {reactCount}</p>
         <button 
           className="px-3 py-1 bg-purple-500 text-white rounded"

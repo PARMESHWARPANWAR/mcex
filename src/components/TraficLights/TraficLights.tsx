@@ -29,7 +29,7 @@ const TraficLights = () => {
     const [delay, setDelay] = useState('')
     const timerRef = useRef();
     const countRef = useRef(countDown);
-    const inputRef = useRef(null);
+    // const inputRef = useRef(null);
 
     const endTimer = () => {
         if (timerRef.current) {

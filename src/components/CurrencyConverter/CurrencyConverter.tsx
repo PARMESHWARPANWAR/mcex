@@ -6,15 +6,16 @@ import CurrencyDropdown from "./dropdown";
 import {HiArrowsRightLeft} from "react-icons/hi2";
 
 const CurrencyConverter = () => {
-  const [currencies, setCurrencies] = useState([]);
+  const [currencies, setCurrencies] = useState<string[]>([]);
   const [amount, setAmount] = useState(1);
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("INR");
-  const [convertedAmount, setConvertedAmount] = useState(null);
+  const [convertedAmount, setConvertedAmount] = useState<string>("");
   const [converting, setConverting] = useState(false);
-  const [favorites, setFavorites] = useState(
-    JSON.parse(localStorage.getItem("favorites")) || ["INR", "EUR"]
-  );
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    return storedFavorites ? JSON.parse(storedFavorites) : ["INR", "EUR"];
+  });
 
   // Currencies -> https://api.frankfurter.app/currencies
   const fetchCurrencies = async () => {
@@ -52,7 +53,7 @@ const CurrencyConverter = () => {
     }
   };
 
-  const handleFavorite = (currency) => {
+  const handleFavorite = (currency:string) => {
     let updatedFavorites = [...favorites];
 
     if (favorites.includes(currency)) {
@@ -113,7 +114,7 @@ const CurrencyConverter = () => {
         </label>
         <input
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={(e) => setAmount(parseFloat(e.target.value))}
           type="number"
           className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-1"
         />

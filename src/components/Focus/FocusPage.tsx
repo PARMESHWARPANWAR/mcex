@@ -1,27 +1,30 @@
 'use client'
 import { cn } from "@/lib/utils"
-import { useRef, useState } from "react"
+import { useRef, useState} from "react"
 
 
 const colors = ['green-900','red-900','yellow-800','white']
-const fontWeights = []
-const fontSize = []
+// const fontWeights = []
+// const fontSize = []
 
-interface ColorType {
-    bg: string,
-    text: string,
-}
-interface FontStyles {
-    weight:''
-}
+// interface ColorType {
+//     bg: string,
+//     text: string,
+// }
+// interface FontStyles {
+//     weight:''
+// }
 
 export const FocusPage = () => {
     const [text,setText] = useState<string>('राधा')
-    const [color, setColor] = useState<ColorType>({ bg: `bg-${colors[3]}`, text: `text-yellow-500` })
-    const [fontStyle, setFontStyle] = useState<FontStyles>({
-        weight:'font-[400]'
-    })
+    // const [color, setColor] = useState<ColorType>({ bg: `bg-${colors[3]}`, text: `text-yellow-500` })
+    // const [fontStyle, setFontStyle] = useState<FontStyles>({
+    //     weight:'font-[400]'
+    // })
 
+    const color = { bg: `bg-${colors[3]}`, text: `text-yellow-500` }
+   
+    
     return <div className={``}>
         <textarea
           value={text}
@@ -29,7 +32,7 @@ export const FocusPage = () => {
           placeholder="Enter your text here..."
           className="w-full p-2 border rounded-md h-32"
         />
-        <FullscreenText text={text} fontStyle={fontStyle.weight} backgroundColor={cn(color.bg)} textColor={cn(color.text)}/>
+        <FullscreenText text={text}  backgroundColor={cn(color.bg)} textColor={cn(color.text)}/>
         </div>
 }
 
@@ -38,14 +41,14 @@ export const FocusPage = () => {
 // Only work to show text and togle button for full screen
 // In future make it like any file type can make full screen
 
-const FullscreenText = ({ text = 'Testing Purpose',fontStyle='text-[100px] font-bold', backgroundColor='bg-red-900', textColor = 'text-blue-900' }) => {
+const FullscreenText = ({ text = 'Testing Purpose', backgroundColor='bg-red-900', textColor = 'text-blue-900' }) => {
     const [isFullscreen, setIsFullscreen] = useState(false);
-    const containerRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const toggleFullscreen = async () => {
         if (!document.fullscreenElement && containerRef.current) {
             try {
-                await containerRef.current.requestFullscreen();
+                await containerRef.current?.requestFullscreen();
                 setIsFullscreen(true);
             } catch (err) {
                 console.error('Error attempting to enable fullscreen:', err);
