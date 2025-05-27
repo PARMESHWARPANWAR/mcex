@@ -2,7 +2,12 @@
 import React, { useState, useRef, useEffect } from "react";
 
 
-const TraficLightsData = {
+const TraficLightsData:{
+    [key: string]: {
+        next: string;
+        timer: number;
+    }
+} = {
     red: {
         next: 'yellow',
         timer: 10,
@@ -17,7 +22,9 @@ const TraficLightsData = {
     }
 }
 
-const light = {
+const light:{
+    [key: string]:  string;
+} = {
     red: '#FF0000',
     yellow: '#FFFF00',
     green: '#00FF00',
@@ -27,14 +34,14 @@ const TraficLights = () => {
     const [countDown, setCountDown] = useState(2)
     const [currentLight, setCurrentLight] = useState('red');
     const [delay, setDelay] = useState('')
-    const timerRef = useRef();
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
     const countRef = useRef(countDown);
     // const inputRef = useRef(null);
 
     const endTimer = () => {
         if (timerRef.current) {
             clearInterval(timerRef.current);
-            const nextlight = TraficLightsData[currentLight].next;
+            const nextlight:string = TraficLightsData[currentLight].next;
             setCountDown(TraficLightsData[nextlight].timer);
             setCurrentLight(nextlight);
         }
@@ -42,7 +49,9 @@ const TraficLights = () => {
 
     const setLight = (light: 'red' | 'yellow' | 'green') => {
         if (light === currentLight) return;
-        clearInterval(timerRef.current)
+        if (timerRef.current) {
+    clearInterval(timerRef.current);
+}
         setCountDown(TraficLightsData[light].timer);
         setCurrentLight(light);
     }
