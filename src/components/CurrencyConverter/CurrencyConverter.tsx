@@ -13,7 +13,10 @@ const CurrencyConverter = () => {
   const [convertedAmount, setConvertedAmount] = useState<string>("");
   const [converting, setConverting] = useState(false);
   const [favorites, setFavorites] = useState<string[]>(() => {
-    const storedFavorites = localStorage.getItem("favorites");
+    let storedFavorites
+    if (typeof window !== 'undefined'){
+      storedFavorites = localStorage.getItem("favorites");
+    }
     return storedFavorites ? JSON.parse(storedFavorites) : ["INR", "EUR"];
   });
 
