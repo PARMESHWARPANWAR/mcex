@@ -140,14 +140,23 @@ const MultimodalSearchApiFlow: React.FC = () => {
       </div>
       
       <style jsx global>{`
-        body {
+       body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           margin: 0;
           padding: 20px;
-          background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
           min-height: 100vh;
           color: white;
         }
+          
+        // body {
+        //   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        //   margin: 0;
+        //   padding: 20px;
+        //   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        //   min-height: 100vh;
+        //   color: white;
+        // }
         
         .container {
           max-width: 1400px;
@@ -159,11 +168,22 @@ const MultimodalSearchApiFlow: React.FC = () => {
           box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         
-        h1 {
+        // h1 {
+        //   text-align: center;
+        //   font-size: 2.5em;
+        //   margin-bottom: 30px;
+        //   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        // }
+
+          h1 {
           text-align: center;
-          font-size: 2.5em;
-          margin-bottom: 30px;
+          font-size: 2.8em;
+          margin-bottom: 40px;
           text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+          background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
       `}</style>
     </>
