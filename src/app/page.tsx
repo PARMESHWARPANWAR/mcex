@@ -1,4 +1,13 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+// ----------------------------------------------------------------------
+
+export const metadata: Metadata = {
+  title: 'Home | Maching Coding',
+  description:
+    'Frontend Machine Coding Challenge And Common Frontend Interview Questions',
+};
 
 const challenges = [
   {
@@ -113,6 +122,12 @@ const challenges = [
     title:'Multi Modal Api Project',
     path:'/multimodal-api',
     description:'Multi Modal Search Api'
+  },
+  {
+    Tutorial:20,
+    title:'Faiss Vs Pinecone',
+    path:'/faiss-pinecone',
+    description:'Faiss Vs Pinecone'
   },
 ];
 
