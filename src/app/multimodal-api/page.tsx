@@ -1,4 +1,5 @@
 
+import ChallengesPage from "@/components/Challenge/challenges";
 import { BackButton } from "@/components/ui/BackButton";
 import MultimodalSearchApiFlow from "@/sections/multimodel/multimodal-api-flow/components/MultimodalSearchApiFlow";
 import type { Metadata } from 'next';
@@ -16,7 +17,8 @@ export default function MultiModalPage() {
       <div className="container mx-auto p-4">
         <BackButton />
         <h1 className="text-3xl font-bold mb-8">Multi Modal Search Project Flow</h1>
-        <MultimodalSearchApiFlow/>
+        {/* <MultimodalSearchApiFlow/> */}
+        <ChallengesPage/>
       </div>
     );
 }
