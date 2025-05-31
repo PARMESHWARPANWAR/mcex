@@ -64,6 +64,8 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           display: block;
           text-decoration: none;
           color: inherit;
+
+          contain: layout style paint;
         }
         
         .challenge-card {
@@ -76,6 +78,15 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           position: relative;
           overflow: hidden;
           cursor: pointer;
+
+          min-height: 180px;
+          box-sizing: border-box;
+          will-change: transform;
+          transform: translateZ(0);
+
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
         
         .challenge-card::before {
@@ -87,6 +98,7 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           height: 100%;
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
           transition: left 0.5s ease;
+          pointer-events: none;
         }
         
         .challenge-card:hover::before {
@@ -105,6 +117,10 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           justify-content: space-between;
           align-items: center;
           margin-bottom: 15px;
+
+          /* Fixed height to prevent shifts */
+          min-height: 32px;
+          flex-shrink: 0;
         }
         
         .tutorial-badge {
@@ -115,6 +131,9 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           font-size: 0.85em;
           font-weight: 600;
           box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+          white-space: nowrap;
+          line-height: 1;
         }
         
         .difficulty-badge {
@@ -124,6 +143,12 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           font-weight: 600;
           color: white;
           box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+          /* Prevent text shifting */
+          white-space: nowrap;
+          line-height: 1;
+          min-width: 60px; /* Consistent width */
+          text-align: center;
         }
         
         .challenge-content {
@@ -138,6 +163,13 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           color: white;
           text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
           line-height: 1.3;
+
+          /* Prevent title from changing layout */
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          min-height: 2.6em; /* Reserve space for 2 lines */
         }
         
         .challenge-description {
@@ -145,6 +177,15 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           line-height: 1.6;
           margin: 0 0 15px 0;
           font-size: 0.95em;
+
+          flex-grow: 1;
+
+          /* Prevent description from changing layout */
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          min-height: 4.8em; /* Reserve space for 3 lines */
         }
         
         .challenge-category {
@@ -155,6 +196,11 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           color: rgba(255, 255, 255, 0.8);
           display: inline-block;
           border: 1px solid rgba(255, 255, 255, 0.2);
+
+          /* Prevent category from shifting */
+          white-space: nowrap;
+          align-self: flex-start;
+          margin-top: auto; /* Push to bottom */
         }
         
         .challenge-arrow {
@@ -166,6 +212,9 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
           color: #4ecdc4;
           opacity: 0;
           transition: all 0.3s ease;
+
+          pointer-events: none; /* Prevent interaction issues */
+          line-height: 1;
         }
         
         .challenge-card:hover .challenge-arrow {
@@ -176,12 +225,16 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
         @media (max-width: 768px) {
           .challenge-card {
             padding: 20px;
+
+            min-height: 160px; /* Smaller min-height for mobile */
           }
           
           .challenge-header {
             flex-direction: column;
             align-items: flex-start;
             gap: 10px;
+
+            min-height: 60px; /* Adjusted for stacked layout */
           }
           
           .challenge-title {
