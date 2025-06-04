@@ -85,20 +85,20 @@ const ChallengesPage: NextPage = () => {
     //       subtitle="Master ImageBind and multimodal search from basics to production"
     //     />
         
-    //     <div className="learning-path-info">
-    //       <div className="info-card">
-    //         <h3>📚 Progressive Learning</h3>
-    //         <p>Each tutorial builds upon the previous ones, creating a complete multimodal search system by the end.</p>
-    //       </div>
-    //       <div className="info-card">
-    //         <h3>🛠️ Hands-On Practice</h3>
-    //         <p>Every challenge includes practical code examples, exercises, and real-world implementations.</p>
-    //       </div>
-    //       <div className="info-card">
-    //         <h3>🚀 Production Ready</h3>
-    //         <p>Learn not just the concepts, but how to deploy and scale multimodal AI systems in production.</p>
-    //       </div>
-    //     </div>
+        // <div className="learning-path-info">
+        //   <div className="info-card">
+        //     <h3>📚 Progressive Learning</h3>
+        //     <p>Each tutorial builds upon the previous ones, creating a complete multimodal search system by the end.</p>
+        //   </div>
+        //   <div className="info-card">
+        //     <h3>🛠️ Hands-On Practice</h3>
+        //     <p>Every challenge includes practical code examples, exercises, and real-world implementations.</p>
+        //   </div>
+        //   <div className="info-card">
+        //     <h3>🚀 Production Ready</h3>
+        //     <p>Learn not just the concepts, but how to deploy and scale multimodal AI systems in production.</p>
+        //   </div>
+        // </div>
     //   </SectionWrapper>
       
     //   <style jsx>{`

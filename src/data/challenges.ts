@@ -127,5 +127,18 @@ export const challenges: Challenge[] = [
     title: 'Vector Database Comparison',
     path: '/faiss-pinecone',
     description: 'Compare and implement both FAISS and Pinecone vector databases for similarity search, including performance benchmarks and use case analysis.'
+  },
+  {
+    Tutorial: 21,
+    title: 'Multimodal Search API Tutorials',
+    path: '/tutorials',
+    description: 'Multi Modeal Search AI using imagebind, faiss vector, fastapp, and mongodb with monitoring integration.'
+  },
+  {
+    Tutorial: 22,
+    title: 'Multimodal Search API ',
+    path: '/multi-search-api',
+    description: 'Multi Modal search api testing and demo using local backend'
   }
 ];
+
