@@ -1,5 +1,24 @@
 import { Document } from 'mongoose';
 
+
+export interface IUser {
+  _id: string;
+  email: string;
+  username: string;
+  password?: string; // Optional for client-side
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IUserDocument extends Document {
+  email: string;
+  username: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+  comparePassword(candidatePassword: string): Promise<boolean>;
+}
+
 export interface ITask {
   _id: string;
   title: string;
@@ -9,6 +28,7 @@ export interface ITask {
   streakLast: Date | null;
   createdAt: Date;
   completedDates: Date[];
+  userId: string; // Reference to user
 }
 
 export interface ITaskDocument extends Document {
@@ -19,6 +39,7 @@ export interface ITaskDocument extends Document {
   streakLast: Date | null;
   createdAt: Date;
   completedDates: Date[];
+  userId: string;
 }
 
 export interface CreateTaskData {
@@ -26,9 +47,28 @@ export interface CreateTaskData {
   description: string;
 }
 
+export interface CreateUserData {
+  email: string;
+  username: string;
+  password: string;
+}
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
+  error?: string;
+  message?: string;
+}
+
+export interface AuthResponse {
+  success: boolean;
+  user?: IUser;
+  token?: string;
   error?: string;
 }
 

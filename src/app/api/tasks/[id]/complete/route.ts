@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Task from '@/models/Task';
+import { getUserFromToken } from '@/lib/middleware';
 import { ApiResponse, ITask } from '@/types';
 import { calculateStreakData } from '@/lib/taskHelpers';
 import { Types } from 'mongoose';
@@ -25,7 +26,16 @@ export async function POST(
     }
 
     await dbConnect();
-    const task = await Task.findById(id);
+    
+    const userId = getUserFromToken(request);
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const task = await Task.findOne({ _id: id, userId });
     
     if (!task) {
       return NextResponse.json(

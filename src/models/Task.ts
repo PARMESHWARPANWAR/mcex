@@ -35,10 +35,15 @@ const TaskSchema: Schema<ITaskDocument> = new mongoose.Schema({
   completedDates: [{
     type: Date,
   }],
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'User ID is required'],
+  },
 });
 
 // Add indexes for better performance
-TaskSchema.index({ createdAt: -1 });
-TaskSchema.index({ streakCurrent: -1 });
+TaskSchema.index({ userId: 1, createdAt: -1 });
+TaskSchema.index({ userId: 1, streakCurrent: -1 });
 
 export default mongoose.models.Task || mongoose.model<ITaskDocument>('Task', TaskSchema);
