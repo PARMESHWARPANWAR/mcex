@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Task from '@/models/Task';
+import { getUserFromToken } from '@/lib/middleware';
 import { ApiResponse, ITask } from '@/types';
 import { Types } from 'mongoose';
 
@@ -24,12 +25,22 @@ export async function PUT(
     }
 
     await dbConnect();
+    
+    const userId = getUserFromToken(request);
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
     const updateData = await request.json();
     
-    const task = await Task.findByIdAndUpdate(id, updateData, {
-      new: true,
-      runValidators: true,
-    }).lean<ITask>();
+    const task = await Task.findOneAndUpdate(
+      { _id: id, userId }, // Ensure user owns the task
+      updateData,
+      { new: true, runValidators: true }
+    ).lean<ITask>();
     
     if (!task) {
       return NextResponse.json(
@@ -64,7 +75,16 @@ export async function DELETE(
     }
 
     await dbConnect();
-    const deletedTask = await Task.deleteOne({ _id: id });
+    
+    const userId = getUserFromToken(request);
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const deletedTask = await Task.deleteOne({ _id: id, userId });
     
     if (!deletedTask.deletedCount) {
       return NextResponse.json(
