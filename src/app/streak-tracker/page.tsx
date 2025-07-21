@@ -186,7 +186,7 @@ export default function HomePage() {
         {/* Header Section */}
         <header className="text-center mb-12">
           <div className="inline-flex items-center justify-center p-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg transform hover:scale-105 transition-transform duration-200">
-            <svg 
+            {/* <svg 
               className="w-8 h-8 text-white mr-3" 
               fill="none" 
               stroke="currentColor" 
@@ -199,7 +199,7 @@ export default function HomePage() {
                 strokeWidth="2" 
                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" 
               />
-            </svg>
+            </svg> */}
             <h1 className="text-4xl font-bold text-white">Streak Tracker</h1>
           </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
