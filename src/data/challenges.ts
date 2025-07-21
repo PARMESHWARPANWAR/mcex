@@ -139,6 +139,12 @@ export const challenges: Challenge[] = [
     title: 'Multimodal Search API ',
     path: '/multi-search-api',
     description: 'Multi Modal search api testing and demo using local backend'
+  },
+  {
+    Tutorial: 23,
+    title: 'Streak Tracker',
+    path: '/streak-tracker',
+    description: 'Streak Tracker is a productivity tool that helps users track their daily tasks and maintain streaks for better habit formation. It features task creation, completion tracking, and streak management.'
   }
 ];
 
