@@ -16,7 +16,7 @@ export async function POST(
 ): Promise<NextResponse<ApiResponse<ITask>>> {
   try {
     const { id } = await params;
-    
+
     // Validate ObjectId
     if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -26,7 +26,7 @@ export async function POST(
     }
 
     await dbConnect();
-    
+
     const userId = getUserFromToken(request);
     if (!userId) {
       return NextResponse.json(
@@ -36,7 +36,7 @@ export async function POST(
     }
 
     const task = await Task.findOne({ _id: id, userId });
-    
+
     if (!task) {
       return NextResponse.json(
         { success: false, error: 'Task not found' },
@@ -65,13 +65,15 @@ export async function POST(
     task.completedDates.push(today);
 
     // Calculate new streak
-    const { streakCurrent } = calculateStreakData(
-      [...task.completedDates], 
-      task.streakLast
-    );
-    
-    task.streakCurrent = streakCurrent;
+    // Simple streak calculation - just 2 lines!
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
 
+    task.streakCurrent = task.streakLast &&
+      new Date(task.streakLast).toDateString() === yesterday.toDateString()
+      ? task.streakCurrent + 1
+      : 1;
+      
     // Update max streak
     if (task.streakCurrent > task.streakMax) {
       task.streakMax = task.streakCurrent;
