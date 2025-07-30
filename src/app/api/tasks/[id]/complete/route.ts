@@ -44,15 +44,13 @@ export async function POST(
       );
     }
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const todayDateString = new Date().toDateString(); // "Mon Jan 02 2024"
+    const yesterdayDateString = new Date(Date.now() - 86400000).toDateString(); // "Sun Jan 01 2024"
 
     // Check if already completed today
-    const alreadyCompletedToday = task.completedDates.some((date: Date) => {
-      const completedDate = new Date(date);
-      completedDate.setHours(0, 0, 0, 0);
-      return completedDate.getTime() === today.getTime();
-    });
+    const alreadyCompletedToday = task.completedDates.some((date: Date) =>
+      new Date(date).toDateString() === todayDateString
+    );
 
     if (alreadyCompletedToday) {
       return NextResponse.json(
@@ -61,25 +59,20 @@ export async function POST(
       );
     }
 
-    // Add today to completed dates
-    task.completedDates.push(today);
+    // Add today's completion
+    task.completedDates.push(new Date());
 
-    // Calculate new streak
-    // Simple streak calculation - just 2 lines!
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-
+    // SIMPLE: Just compare date strings
     task.streakCurrent = task.streakLast &&
-      new Date(task.streakLast).toDateString() === yesterday.toDateString()
+      new Date(task.streakLast).toDateString() === yesterdayDateString
       ? task.streakCurrent + 1
       : 1;
-      
     // Update max streak
     if (task.streakCurrent > task.streakMax) {
       task.streakMax = task.streakCurrent;
     }
 
-    task.streakLast = today;
+    task.streakLast = todayDateString;
     await task.save();
 
     // Return lean object
