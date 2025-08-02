@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import { TaskCardProps } from '@/types';
 import { isCompletedToday, formatDate } from '@/lib/taskHelpers';
+import { useRouter } from 'next/navigation';
 
 const TaskCard: React.FC<TaskCardProps> = ({ task, onComplete, onDelete }) => {
   const [isCompleting, setIsCompleting] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleComplete = async (): Promise<void> => {
     if (isCompleting || completedToday) return;
@@ -16,7 +18,6 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onComplete, onDelete }) => {
       await onComplete(task._id);
     } catch (error) {
       console.error('Error completing task:', error);
-      // TODO: Add toast notification for error
     } finally {
       setIsCompleting(false);
     }
@@ -34,16 +35,15 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onComplete, onDelete }) => {
       await onDelete(task._id);
     } catch (error) {
       console.error('Error deleting task:', error);
-      // TODO: Add toast notification for error
       setIsDeleting(false);
     }
   };
 
-  const completedToday = isCompletedToday(task);
+  const handleViewDetails = (): void => {
+    router.push(`streak-tracker/tasks/${task._id}`);
+  };
 
-  // Button states
-  const buttonDisabled = isCompleting || completedToday;
-  const deleteDisabled = isDeleting;
+  const completedToday = isCompletedToday(task);
 
   return (
     <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl border border-white/20 p-6 transition-all duration-300 hover:-translate-y-1 animate-slide-in">
@@ -54,37 +54,41 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onComplete, onDelete }) => {
             {task.title}
           </h3>
           <p className="text-gray-600 leading-relaxed line-clamp-3">
-            {task.description}
+            {task.description.slice(0,20)}...
           </p>
         </div>
         
-        {/* Delete Button */}
-        <button
-          onClick={handleDelete}
-          disabled={deleteDisabled}
-          className={`flex-shrink-0 p-2 rounded-full transition-all duration-200 ${
-            deleteDisabled
-              ? 'text-gray-300 cursor-not-allowed'
-              : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
-          }`}
-          title="Delete task"
-          type="button"
-          aria-label="Delete task"
-        >
-          {deleteDisabled ? (
-            <svg className="w-5 h-5 animate-spin" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z" />
-            </svg>
-          ) : (
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path 
-                fillRule="evenodd" 
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
-                clipRule="evenodd" 
-              />
-            </svg>
-          )}
-        </button>
+        {/* Action buttons */}
+        <div className="flex space-x-2">
+          {/* View Details button */}
+          <button
+            onClick={handleViewDetails}
+            className="p-2 rounded-full text-blue-500 hover:bg-blue-50 transition-all duration-200"
+            title="View details"
+            type="button"
+          >
+            <EyeIcon className="w-5 h-5" />
+          </button>
+          
+          {/* Delete button */}
+          <button
+            onClick={handleDelete}
+            disabled={isDeleting}
+            className={`p-2 rounded-full transition-all duration-200 ${
+              isDeleting
+                ? 'text-gray-300 cursor-not-allowed'
+                : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
+            }`}
+            title="Delete task"
+            type="button"
+          >
+            {isDeleting ? (
+              <LoadingIcon className="w-5 h-5" />
+            ) : (
+              <TrashIcon className="w-5 h-5" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -123,7 +127,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onComplete, onDelete }) => {
       {/* Complete Button */}
       <button
         onClick={handleComplete}
-        disabled={buttonDisabled}
+        disabled={isCompleting || completedToday}
         className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-offset-2 ${
           completedToday
             ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 cursor-not-allowed border border-green-200 focus:ring-green-500'
@@ -132,80 +136,49 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onComplete, onDelete }) => {
             : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 focus:ring-blue-500'
         }`}
         type="button"
-        aria-label={
-          completedToday 
-            ? 'Task completed for today' 
-            : isCompleting 
-            ? 'Completing task...' 
-            : 'Mark task as complete'
-        }
       >
-        <ButtonContent 
-          completedToday={completedToday} 
-          isCompleting={isCompleting} 
-        />
+        {completedToday ? (
+          <span className="flex items-center justify-center">
+            <CheckIcon className="w-5 h-5 mr-2" />
+            Completed Today
+          </span>
+        ) : isCompleting ? (
+          <span className="flex items-center justify-center">
+            <LoadingIcon className="w-5 h-5 mr-2" />
+            Completing...
+          </span>
+        ) : (
+          'Mark Complete'
+        )}
       </button>
     </div>
   );
 };
 
-// Separate component for button content to improve readability
-const ButtonContent: React.FC<{
-  completedToday: boolean;
-  isCompleting: boolean;
-}> = ({ completedToday, isCompleting }) => {
-  if (completedToday) {
-    return (
-      <span className="flex items-center justify-center">
-        <CheckIcon className="w-5 h-5 mr-2" />
-        Completed Today
-      </span>
-    );
-  }
-
-  if (isCompleting) {
-    return (
-      <span className="flex items-center justify-center">
-        <LoadingSpinner className="w-5 h-5 mr-2" />
-        Completing...
-      </span>
-    );
-  }
-
-  return 'Mark Complete';
-};
-
-// Icon components for better reusability and readability
-const CheckIcon: React.FC<{ className: string }> = ({ className }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
-    <path 
-      fillRule="evenodd" 
-      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
-      clipRule="evenodd" 
-    />
+// Icon Components
+const EyeIcon: React.FC<{ className: string }> = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
   </svg>
 );
 
-const LoadingSpinner: React.FC<{ className: string }> = ({ className }) => (
-  <svg 
-    className={`${className} animate-spin`}
-    xmlns="http://www.w3.org/2000/svg" 
-    fill="none" 
-    viewBox="0 0 24 24"
-  >
-    <circle 
-      className="opacity-25" 
-      cx="12" 
-      cy="12" 
-      r="10" 
-      stroke="currentColor" 
-      strokeWidth="4"
-    />
-    <path 
-      className="opacity-75" 
-      fill="currentColor" 
-      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-    />
+const TrashIcon: React.FC<{ className: string }> = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+  </svg>
+);
+
+const CheckIcon: React.FC<{ className: string }> = ({ className }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+  </svg>
+);
+
+const LoadingIcon: React.FC<{ className: string }> = ({ className }) => (
+  <svg className={`${className} animate-spin`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
   </svg>
 );
 

@@ -44,13 +44,17 @@ export async function POST(
       );
     }
 
+    if (!task.completedDates) {
+      task.completedDates = [];
+    }
+
     const todayDateString = new Date().toDateString(); // "Mon Jan 02 2024"
     const yesterdayDateString = new Date(Date.now() - 86400000).toDateString(); // "Sun Jan 01 2024"
 
     // Check if already completed today
-    const alreadyCompletedToday = task.completedDates.some((date: Date) =>
+    const alreadyCompletedToday = task.completedDates?.some((date: Date) =>
       new Date(date).toDateString() === todayDateString
-    );
+    ) || false;
 
     if (alreadyCompletedToday) {
       return NextResponse.json(
