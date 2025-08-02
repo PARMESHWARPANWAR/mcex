@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { ITaskDocument } from '@/types';
+import { ITaskDocument, DifficultyLevel, FrequencyType } from '@/types';
 
 const TaskSchema: Schema<ITaskDocument> = new mongoose.Schema({
   title: {
@@ -14,6 +14,32 @@ const TaskSchema: Schema<ITaskDocument> = new mongoose.Schema({
     trim: true,
     maxlength: [500, 'Description cannot exceed 500 characters'],
   },
+  category: {
+    type: String,
+    trim: true,
+    maxlength: [50, 'Category cannot exceed 50 characters'],
+  },
+  difficulty: {
+    type: String,
+    enum: Object.values(DifficultyLevel),
+    default: DifficultyLevel.MEDIUM,
+  },
+  targetFrequency: {
+    type: String,
+    enum: Object.values(FrequencyType),
+    default: FrequencyType.DAILY,
+  },
+  reminderTime: {
+    type: String, // Format: "HH:MM"
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+  tags: [{
+    type: String,
+    trim: true,
+  }],
   streakCurrent: {
     type: Number,
     default: 0,
@@ -28,22 +54,25 @@ const TaskSchema: Schema<ITaskDocument> = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  completedDates: [{
-    type: Date,
-  }],
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: [true, 'User ID is required'],
   },
+}, {
+  timestamps: true,
 });
 
-// Add indexes for better performance
+// Virtual for streak entries
+TaskSchema.virtual('streakEntries', {
+  ref: 'StreakEntry',
+  localField: '_id',
+  foreignField: 'taskId',
+});
+
+// Add indexes
 TaskSchema.index({ userId: 1, createdAt: -1 });
-TaskSchema.index({ userId: 1, streakCurrent: -1 });
+TaskSchema.index({ userId: 1, isActive: 1 });
+TaskSchema.index({ userId: 1, category: 1 });
 
 export default mongoose.models.Task || mongoose.model<ITaskDocument>('Task', TaskSchema);

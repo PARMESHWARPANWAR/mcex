@@ -17,7 +17,7 @@ export default function HomePage() {
   
   // State management
   const [tasks, setTasks] = useState<ITask[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   // Fetch tasks from API
@@ -157,7 +157,7 @@ export default function HomePage() {
     return <LoadingSpinner />;
   }
 
-  // Show auth page if not authenticated
+  // // Show auth page if not authenticated
   if (!isAuthenticated) {
     return <AuthPage />;
   }

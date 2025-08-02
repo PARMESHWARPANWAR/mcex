@@ -60,6 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Check if user is authenticated
   const checkAuth = async (): Promise<void> => {
     try {
+      console.log('called auth ')
       const token = getToken();
       if (!token) {
         setLoading(false);
@@ -130,6 +131,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Check auth on mount
   useEffect(() => {
+    console.log('called auth 0')
     checkAuth();
   }, []);
 
