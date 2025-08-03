@@ -40,7 +40,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onComplete, onDelete }) => {
   };
 
   const handleViewDetails = (): void => {
-    router.push(`streak-tracker/tasks/${task._id}`);
+    router.push(`/streak-tracker/tasks/${task._id}`);
   };
 
   const completedToday = isCompletedToday(task);
